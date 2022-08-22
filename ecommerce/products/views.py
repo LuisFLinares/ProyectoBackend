@@ -4,6 +4,7 @@ from  rest_framework.permissions import IsAuthenticated
 from .models import Categories, Products, Purchase, PurchaseDetail
 from .serializers import CategoriesSerializer, ProductsSerializer, PurchaseSerializer, PurchaseDetailSerializer
 import cloudinary
+import cloudinary.uploader
 
 
 class ProductsView(generics.ListCreateAPIView):
