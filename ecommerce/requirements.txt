@@ -11,3 +11,4 @@ tzdata==2022.1
 drf-yasg==1.21.3
 django-cors-headers==3.13.0
 gunicorn
+cloudinary
