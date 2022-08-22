@@ -1,8 +1,10 @@
 from rest_framework import generics,  status
 from rest_framework.response import Response
+from  rest_framework.permissions import IsAuthenticated
 from .models import Categories, Products, Purchase, PurchaseDetail
 from .serializers import CategoriesSerializer, ProductsSerializer, PurchaseSerializer, PurchaseDetailSerializer
 import cloudinary
+
 
 class ProductsView(generics.ListCreateAPIView):
     queryset = Products.objects.all()
@@ -18,6 +20,7 @@ class ProductsView(generics.ListCreateAPIView):
        if product.is_valid():
           product.save()
           return Response(data=product.data, status=status.HTTP_201_CREATED)
+    
 
 class CategoriesView(generics.ListCreateAPIView):
    queryset = Categories.objects.filter(categoryStatus=True).all()
@@ -58,12 +61,9 @@ class DeletePurchaseDetailView(generics.DestroyAPIView):
     queryset = Categories.objects.all()
     serializer_class = PurchaseDetailSerializer
 
-from  rest_framework.permissions import IsAuthenticated
-
 class UploadView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     def post(self,request):
-        print(request.user)
         file = request.data.get('picture')
 
         upload_data = cloudinary.uploader.upload(file)
